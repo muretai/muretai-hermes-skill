@@ -46,9 +46,19 @@ fi
 #    ABSOLUTE agent_mcp.py path is used because `hermes mcp add` has no --cwd (agent_mcp.py
 #    self-chdirs, so keys/ + data/ still resolve). `mcp remove` first makes a re-run idempotent
 #    (re-adding an existing server is otherwise an error); both verified in Hermes' CLI reference.
+#    `mcp add` ENDS in an interactive "Enable all 25 tools? [Y/n/select]" prompt; fed EOF it
+#    prints "Cancelled." and saves NOTHING, so the answer is piped in (verified on a clean
+#    Debian + Hermes v0.20.0 box — without it every non-interactive install wired nothing
+#    while appearing to succeed).
 hermes mcp remove muretai >/dev/null 2>&1 || true
-hermes mcp add muretai --command "$PYBIN" --args "$BUNDLE/agent_mcp.py" --as "$NAME" --relay "$RELAY" || true
-hermes mcp test muretai || true
+printf 'y\n' | hermes mcp add muretai --command "$PYBIN" --args "$BUNDLE/agent_mcp.py" --as "$NAME" --relay "$RELAY" || true
+# Verify rather than assume: `mcp list` must actually show the server now.
+if hermes mcp list 2>/dev/null | grep -q muretai; then
+  echo "OK: muretai registered with Hermes (start a new session to use the tools)."
+else
+  echo "⚠️  Hermes did not save the MCP server. Retry interactively:"
+  echo "     hermes mcp add muretai --command \"$PYBIN\" --args \"$BUNDLE/agent_mcp.py\" --as \"$NAME\" --relay \"$RELAY\""
+fi
 
 # 4) Start the relay-only listener (logs inbound mail for read_inbox) — only if one isn't already
 #    up for this node. start_client.sh execs `agent/main.py … --relay-only`, so match THAT process.
