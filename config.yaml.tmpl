@@ -1,0 +1,10 @@
+# Merge this block into ~/.hermes/config.yaml (or use `hermes mcp add`, below).
+mcp_servers:
+  muretai:
+    command: "<bundle>/.venv/bin/python"
+    args:
+      - "<bundle>/agent_mcp.py"
+      - "--as"
+      - "<name>"
+      - "--relay"
+      - "https://muretai.com"

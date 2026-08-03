@@ -1,0 +1,5 @@
+# Rendered at install time from config.yaml.tmpl (machine-specific paths).
+config.yaml
+*.bak
+*.log
+.DS_Store
