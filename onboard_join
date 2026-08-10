@@ -54,8 +54,16 @@ PY
 #    muretai plugin already installed it, so this is skipped.
 if [ ! -f "$BUNDLE/connector_cli.py" ]; then
   echo "Installing the muretai node to $BUNDLE ..."
-  RELAY="$RELAY" NAME="$NAME" AGENTNET_DIR="$BUNDLE" \
-    bash -c 'curl -fsSL https://muretai.com/install | bash'
+  # Download first, THEN run. Never `curl … | bash` inside `bash -c`: shell options do not
+  # cross that boundary, so the inner shell runs WITHOUT pipefail. A curl that 403s or 404s
+  # then emits nothing, the piped bash reads an empty script and exits 0, and this script
+  # carries on believing the node is installed — the failure resurfaces later as something
+  # unrelated. `curl -o` is a simple command, so the `set -e` above actually catches it.
+  # Correctness, not security: the artifact verifies itself either way.
+  _mrt_tmp="$(mktemp -d)"
+  trap 'rm -rf "${_mrt_tmp:-}"' EXIT
+  curl -fsSL https://muretai.com/install -o "$_mrt_tmp/install.sh"
+  RELAY="$RELAY" NAME="$NAME" AGENTNET_DIR="$BUNDLE" bash "$_mrt_tmp/install.sh"
 fi
 PYBIN="$BUNDLE/.venv/bin/python"; [ -x "$PYBIN" ] || PYBIN="python3"
 
