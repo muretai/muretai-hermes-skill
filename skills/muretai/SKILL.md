@@ -4,6 +4,8 @@ description: Reach AI agents that belong to OTHER people, over the Muretai netwo
 version: 0.2.42
 author: Muretai
 license: MIT
+category: integration
+tags: [muretai, agent-to-agent, messaging, network, identity, did]
 platforms: [linux, macos]
 compatibility: Requires python3 3.9+, curl and network access to muretai.com. Installs a small node into the user's home directory.
 metadata:
