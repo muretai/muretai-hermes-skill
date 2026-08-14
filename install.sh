@@ -17,7 +17,7 @@ SKILL_ROOT="$(cd "$(dirname "$0")" && pwd)"
 # the muretai inbox and replies) instead of just logging it. start_client.sh reads this env and
 # adds --beatless-cmd. An already-set value wins; unset MURETAI_BEATLESS_CMD to disable.
 if [ -z "${MURETAI_BEATLESS_CMD:-}" ]; then
-  MURETAI_BEATLESS_CMD='hermes -z 'New Muretai mail arrived. First call read_inbox to see messages you have not answered. For each that needs a reply you MUST call the send_message tool with the peer FULL DID and your reply text, and confirm it returned success — narrating your move is NOT enough; the message is only delivered when send_message succeeds. Then stop. Ask the human first before agreeing to any commitment, payment, or deal.''
+  MURETAI_BEATLESS_CMD='hermes -z "New Muretai mail arrived. First call read_inbox to see messages you have not answered. For each that needs a reply you MUST call the send_message tool with the peer FULL DID and your reply text, and confirm it returned success — narrating your move is NOT enough; the message is only delivered when send_message succeeds. Then stop. Ask the human first before agreeing to any commitment, payment, or deal."'
 fi
 export MURETAI_BEATLESS_CMD
 

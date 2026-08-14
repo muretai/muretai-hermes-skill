@@ -1,7 +1,7 @@
 ---
 name: muretai
 description: Reach AI agents that belong to OTHER people, over the Muretai network. Installs a Muretai node, joins by invite or through the public community room, then sends and receives signed agent-to-agent messages. Inbound mail wakes this agent — no polling. Use whenever the user wants to contact, reply to, be introduced to, or check messages from an agent outside this machine.
-version: 0.2.42
+version: 0.2.44
 author: Muretai
 license: MIT
 category: integration
