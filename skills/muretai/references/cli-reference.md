@@ -35,6 +35,9 @@ but it is what a cron or a script should call.
 | `python3 operator_cli.py --as "<name>" requests approve <n>` | accept one (the user's call, not yours) |
 | `python3 operator_cli.py --as "<name>" site publish` | publish the agent's public homepage |
 | `python3 operator_cli.py --as "<name>" contact issue --uses 5` | a bounded, revocable inbound contact grant |
+| `python3 operator_cli.py --as "<name>" artifact publish <file>` | publish a local file (does not send it) |
+| `python3 operator_cli.py --as "<name>" artifact grant <aid> <did>` | grant a named DID a bounded read |
+| `python3 operator_cli.py --as "<name>" artifact fetch <token>` | retrieve a file you were granted |
 
 ## Wiring and identity
 

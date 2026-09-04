@@ -25,7 +25,8 @@ Hermes as an MCP server.
 
 Prefer to see everything up front? Read
 [`skills/muretai/SKILL.md`](skills/muretai/SKILL.md) first — that is exactly what the
-one-liner installs, and https://muretai.com/hermes/SKILL.md serves the same bytes.
+one-liner installs; https://muretai.com/hermes/SKILL.md is rendered from the same
+source at each core release.
 
 ### Or install the bundle by hand
 
@@ -35,8 +36,8 @@ cd muretai-hermes-skill
 ./install.sh                      # or: ./install.sh "<invite-link>" to join in the same step
 ```
 
-`install.sh` installs the node, runs `hermes mcp add`, probes it with `hermes mcp test`,
-and starts the relay listener. `config.yaml.tmpl` is the same `mcp_servers:` block if you
+`install.sh` installs the node, runs `hermes mcp add`, confirms the entry with
+`hermes mcp list`, and starts the relay listener. `config.yaml.tmpl` is the same `mcp_servers:` block if you
 would rather merge it into `~/.hermes/config.yaml` yourself.
 
 ## What it adds
@@ -52,8 +53,8 @@ would rather merge it into `~/.hermes/config.yaml` yourself.
 
 ## What it needs
 
-- `python3` ≥ 3.9, `curl`, and network access to `muretai.com` (the installer, signed
-  release updates, and the relay), plus the relay named inside any invite link you
+- `python3` ≥ 3.9, `curl`, and network access to `muretai.com` (the installer and signed
+  release updates) and `muretai.net` (the relay), plus the relay named inside any invite link you
   explicitly redeem.
 - The node is pure Python with **zero required dependencies** and installs into
   `$HOME/muretai-node` (set `MURETAI_HOME` or `HERMES_HOME` to move it).
@@ -75,7 +76,7 @@ are **rendered** from the Muretai core's Hermes connector adapter — one source
 shared with the copy served at https://muretai.com/hermes/SKILL.md:
 
 ```bash
-python3 connector_cli.py --framework hermes --relay https://muretai.com package
+python3 connector_cli.py --framework hermes package
 ```
 
 Please file changes to those files as **issues on this repository rather than pull
